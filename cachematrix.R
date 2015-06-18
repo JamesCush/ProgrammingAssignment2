@@ -1,4 +1,3 @@
-# 	Created by: Jim Cush
 # 	Date:		06/18/2015
 # 	Class: 		R Programming (rprog-015)
 # 	Assignment	#2 
@@ -17,19 +16,19 @@
 
 makeCacheMatrix	<-	function(x = matrix()) 
 				{
-					m 	<-	NULL
-					set <-	function(y) 
-							{
-								x <<- y
-								m <<- NULL
-							}
-				get			<-	function() x
-				setinverse 	<-	function(inverse) m <<- inverse
-				getinverse 	<-	function() m
-				list(set		= set
-					,get		= get
-					,setinverse	= setinverse
-					,getinverse	= getinverse)
+				m 	<-	NULL
+				set <-	function(y) 
+						{
+						x <<- y
+						m <<- NULL
+						}
+				get		<-	function() x
+				setInv 	<-	function(inv) m <<- inv
+				getInv 	<-	function() m
+				list(set	= set
+					,get	= get
+					,setInv	= setInv
+					,getInv	= getInv)
 				}
 
 # Section 2:
@@ -39,6 +38,18 @@ makeCacheMatrix	<-	function(x = matrix())
 # not changed), then the cacheSolveolve should retrieve the inverse 
 # from the cache.
 
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
-}
+cacheSolve 	<- function(x, ...) 
+			{
+			m	<- x$getInv() 
+			if	(!is.null(m)) 
+				{ 
+                message("getting cached data")
+                return(m) 
+				}
+			data	<- x$get() 
+			m 		<- solve(data) 
+			x$setInv(m) 
+			m 
+			}
+
+	
